@@ -1,0 +1,63 @@
+<script setup>
+import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
+
+const showingNavigationDropdown = ref(false);
+</script>
+
+<template>
+    <div class="min-h-screen bg-gray-100 flex flex-col">
+        <nav class="bg-white border-r border-gray-200 w-64 p-4 flex flex-col justify-between fixed inset-y-0 left-0">
+            <!-- Left Side - Navigation Menu -->
+            <div>
+                <!-- Logo -->
+                <div class="flex items-center mb-8">
+                    <Link :href="route('dashboard')">
+                        <img src="/logo.png" alt="Logo" class="h-8 w-auto" />
+                    </Link>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="flex flex-col space-y-4">
+                    <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2">Link 1</Link>
+                    <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2">Link 2</Link>
+                    <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2">Link 3</Link>
+                </div>
+            </div>
+
+            <!-- Bottom Left - Profile and Logout -->
+            <div class="mt-8 sm:mt-0">
+                <div class="text-gray-700 mb-4">Admin Name</div>
+                <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2 block">Profile</Link>
+                <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2 block">Logout</Link>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <main class="flex-1 ml-64 p-4">
+            <div @click="showingNavigationDropdown = !showingNavigationDropdown" class="sm:hidden cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </div>
+            <slot />
+        </main>
+
+        <!-- Mobile Navigation Dropdown -->
+        <div
+            :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
+            class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 p-4 sm:hidden"
+        >
+            <div class="flex flex-col space-y-4">
+                <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2">Link 1</Link>
+                <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2">Link 2</Link>
+                <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2">Link 3</Link>
+            </div>
+            <div class="mt-8">
+                <div class="text-gray-700 mb-4">Admin Name</div>
+                <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2 block">Profile</Link>
+                <Link href="#" class="text-gray-700 hover:bg-gray-200 rounded-lg p-2 block">Logout</Link>
+            </div>
+        </div>
+    </div>
+</template>
